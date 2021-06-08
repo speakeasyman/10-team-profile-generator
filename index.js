@@ -4,10 +4,18 @@ const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
 const inquirer = require('inquirer');
 const fs = require('fs');
+const path = require("path")
+const pathToTop = path.join(__dirname, "./dist/top.html")
+const pathToNewDestination = path.join(__dirname, "sample", "sample.html")
 
-
+// This was a placeholder for an idea I was unable to get to work. It should work, but I couldn't 
+//figure it out. I used some console logs of it to watch how the data was being saved as I went through different prompts.
 let team = [];
 
+
+// This is the initial function that will kick everything off
+// Because it's coded to alway require a manager, when you run index.js
+// whoIsManager() is what is ran.
 whoIsManager = () => {
     inquirer
     .prompt([
@@ -36,8 +44,8 @@ whoIsManager = () => {
         const managerNew = []
         managerNew.push( new Manager(response.nameManager, response.idManager, response.email, response.officeNumber))
         team.push( managerNew);
-        console.log(team)
-        generateTop();
+        // console.log(team)
+        generateTop();  // this sets up the top of the the html file, by coping over a template called top.html into the sample folder called sample.html
         const managerCard =
         `<div class="row">
             <div class="col s12 m6">
@@ -56,11 +64,11 @@ whoIsManager = () => {
             </div>
             </div>
         </div>`
+        // this just appends the manager data newly created as a card to the sample.html located in the sample folder
         fs.appendFile('./sample/sample.html', managerCard, (err) => err ? console.log(err) : '')
         
-        console.log('managerNew Name:', response.name)
-    
-    // generateManagerCard(managerNew);
+        console.log('managerNew Name:', response.name)    
+   
     nextPerson();
 
     
@@ -71,7 +79,7 @@ whoIsManager = () => {
     process.exit(1)
 })
 }
-
+// WhoIsEngineer is the line of prompts to create the Engineer cards
     whoIsEngineer = () => {
         inquirer
         .prompt([
@@ -98,7 +106,7 @@ whoIsManager = () => {
         ])
         .then((response) =>   {
         team.push( new Engineer(response.nameEngineer, response.idEngineer, response.email, response.gitHub));
-        console.log(team)
+        // console.log(team)
         const engineerCard =
         `<div class="row">
             <div class="col s12 m6">
@@ -117,12 +125,13 @@ whoIsManager = () => {
             </div>
             </div>
         </div>`
+        //as before, this will append the engineer card into sample.html
         fs.appendFile('./sample/sample.html', engineerCard, (err) => err ? console.log(err) : '')
         nextPerson();
     }
     
         )}
-
+// Lastly, the whoIsIntern prompts for the interns questions.
     whoIsIntern = () => {
         inquirer
         .prompt([
@@ -149,7 +158,7 @@ whoIsManager = () => {
         ])
         .then((response) =>   {
         team.push( new Intern(response.nameIntern, response.idIntern, response.email, response.school));
-        console.log(team)
+        // console.log(team)
         const internCard =
         `<div class="row">
             <div class="col s12 m6">
@@ -169,13 +178,16 @@ whoIsManager = () => {
             </div>
             </div>
         </div>`
+
+        // this adds the intern cards to the sample.html in the sample folder.
         fs.appendFile('./sample/sample.html', internCard, (err) => err ? console.log(err) : '')
         
         nextPerson();
     }
     
         )}
-
+// This just asks if you'd want to add another intern or engineer. If you chose no one else it'll console log your team, and 
+// invote the generateBot() function.
 nextPerson = () => {
     inquirer
     .prompt([
@@ -192,7 +204,7 @@ nextPerson = () => {
             } else if (answer === 'Intern' ) {
                 whoIsIntern();
             } else {
-                console.log('end goes here')
+                console.log('A preview of your team. sample.html can be found in the sample folder', team)
                 generateBot();
 
 
@@ -204,20 +216,17 @@ nextPerson = () => {
         .catch(function(err) {
             console.log("Oh Noes:", err); 
         
-            // process.exit(1)
+        
         })
 
 }
     
 
-
+// The code that initiates when node index.js is ran
 whoIsManager();
 
-const path = require("path")
 
-
-const pathToTop = path.join(__dirname, "./dist/top.html")
-const pathToNewDestination = path.join(__dirname, "sample", "sample.html")
+//generateTop() just copies the top half a boiler plate html called topl.html as sample.html in the sample folder.
 generateTop = () => {
 
     fs.copyFile(pathToTop, pathToNewDestination, function(err) {
@@ -239,28 +248,3 @@ generateBot = () => {
 fs.appendFile('./sample/sample.html', bothtml, (err) => err ? console.log(err) : '')
 }
 
-
-
-generateManagerCard = () => {
-    
- const managerCard =
- `<div class="row">
-    <div class="col s12 m6">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">${managerNew.name}</span>
-          <ul>
-              <li>Role: Manager</li>
-              <li>ID: ${managerNew.id} </li>
-              <li>Office Number: ${managerNew.officeNumber} </li>
-          </ul>
-        </div>
-        <div class="card-action">
-          <a href="#">${managerNew.email}</a>
-          <a href="#">This is a link</a>
-        </div>
-      </div>
-    </div>
-  </div>`
-  fs.appendFile('./sample/sample.html', managerCard, (err) => err ? console.log("Oh Noes!", err) : '')
-}

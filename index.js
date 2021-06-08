@@ -33,8 +33,35 @@ whoIsManager = () => {
     },
     ])
     .then((response) =>   {
-    team.push( new Manager(response.nameManager, response.idManager, response.email, response.officeNumber));
-    console.log(team)
+        const managerNew = []
+        managerNew.push( new Manager(response.nameManager, response.idManager, response.email, response.officeNumber))
+        team.push( managerNew);
+        console.log(team)
+        generateTop();
+        const managerCard =
+        `<div class="row">
+            <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                <span class="card-title">${response.nameManager}</span>
+                <ul>
+                    <li>Role: Manager</li>
+                    <li>ID: ${response.idManager} </li>
+                    <li>Office Number: ${response.officeNumber} </li>
+                </ul>
+                </div>
+                <div class="card-action">
+                <a href="#">${response.email}</a>
+                <a href="#">This is a link</a>
+                </div>
+            </div>
+            </div>
+        </div>`
+        fs.appendFile('./sample/sample.html', managerCard, (err) => err ? console.log(err) : '')
+        
+        console.log('managerNew Name:', response.name)
+    
+    // generateManagerCard(managerNew);
     nextPerson();
 
     
@@ -73,6 +100,25 @@ whoIsManager = () => {
         .then((response) =>   {
         team.push( new Engineer(response.nameEngineer, response.idEngineer, response.email, response.gitHub));
         console.log(team)
+        const engineerCard =
+        `<div class="row">
+            <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                <span class="card-title">${response.nameEngineer}</span>
+                <ul>
+                    <li>Role: Engineer</li>
+                    <li>ID: ${response.idEngineer} </li>                    
+                </ul>
+                </div>
+                <div class="card-action">
+                <a href="#">${response.email}</a>
+                <a href="#">${response.github}</a>
+                </div>
+            </div>
+            </div>
+        </div>`
+        fs.appendFile('./sample/sample.html', engineerCard, (err) => err ? console.log(err) : '')
         nextPerson();
     }
     
@@ -105,6 +151,27 @@ whoIsManager = () => {
         .then((response) =>   {
         team.push( new Intern(response.nameIntern, response.idIntern, response.email, response.school));
         console.log(team)
+        const internCard =
+        `<div class="row">
+            <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                <span class="card-title">${response.nameIntern}</span>
+                <ul>
+                    <li>Role: Intern</li>
+                    <li>ID: ${response.idIntern} </li>   
+                    <li>ID: ${response.school} </li>                 
+                </ul>
+                </div>
+                <div class="card-action">
+                <a href="#">${response.email}</a>
+                
+                </div>
+            </div>
+            </div>
+        </div>`
+        fs.appendFile('./sample/sample.html', internCard, (err) => err ? console.log(err) : '')
+        
         nextPerson();
     }
     
@@ -126,11 +193,12 @@ nextPerson = () => {
             } else if (answer === 'Intern' ) {
                 whoIsIntern();
             } else {
-                generateCard();
+                console.log('end goes here')
+                generateBot();
 
 
 
-                console.log(team[0].role)
+                
                 
             }
         })
@@ -146,20 +214,54 @@ nextPerson = () => {
 
 whoIsManager();
 
-generateCard = () => {
-    for (let i = 0; i < team.length; i++) {
-        
-        
-    
-             if (team[i].role === 'Manager') {
-            console.log(`I found a manager`)
-        } else if (team[i] === 'Engineer') {
-            console.log(`I found an Engineer`)
-        } else if (team[i] === 'Intern') {
-            console.log(`I found an Intern`)
-        } else return
-    }
-    
+const path = require("path")
 
-    ;
+
+const pathToTop = path.join(__dirname, "./dist/top.html")
+const pathToNewDestination = path.join(__dirname, "sample", "sample.html")
+generateTop = () => {
+
+    fs.copyFile(pathToTop, pathToNewDestination, function(err) {
+        if (err) {
+            throw err
+        } else {
+            console.log("Successfully copied and moved the file!")
+        }
+    })
+}
+
+generateBot = () => {
+
+    const bothtml =
+    `    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>`
+fs.appendFile('./sample/sample.html', bothtml, (err) => err ? console.log(err) : '')
+}
+
+
+
+generateManagerCard = () => {
+    
+ const managerCard =
+ `<div class="row">
+    <div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">${managerNew.name}</span>
+          <ul>
+              <li>Role: Manager</li>
+              <li>ID: ${managerNew.id} </li>
+              <li>Office Number: ${managerNew.officeNumber} </li>
+          </ul>
+        </div>
+        <div class="card-action">
+          <a href="#">${managerNew.email}</a>
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>`
+  fs.appendFile('./sample/sample.html', managerCard, (err) => err ? console.log(err) : '')
 }

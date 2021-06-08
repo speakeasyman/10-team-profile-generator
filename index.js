@@ -51,8 +51,7 @@ whoIsManager = () => {
                 </ul>
                 </div>
                 <div class="card-action">
-                <a href="#">${response.email}</a>
-                <a href="#">This is a link</a>
+                <a href="mailto:${response.email}">${response.email}</a>
                 </div>
             </div>
             </div>
@@ -112,8 +111,8 @@ whoIsManager = () => {
                 </ul>
                 </div>
                 <div class="card-action">
-                <a href="#">${response.email}</a>
-                <a href="#">${response.github}</a>
+                <a href="mailto:${response.email}">${response.email}</a>
+                <a href="https://github.com${response.github}" target="_blank" >${response.github}</a>
                 </div>
             </div>
             </div>
@@ -164,7 +163,7 @@ whoIsManager = () => {
                 </ul>
                 </div>
                 <div class="card-action">
-                <a href="#">${response.email}</a>
+                <a href="mailto:${response.email}">${response.email}</a>
                 
                 </div>
             </div>
@@ -263,5 +262,5 @@ generateManagerCard = () => {
       </div>
     </div>
   </div>`
-  fs.appendFile('./sample/sample.html', managerCard, (err) => err ? console.log(err) : '')
+  fs.appendFile('./sample/sample.html', managerCard, (err) => err ? console.log("Oh Noes!", err) : '')
 }

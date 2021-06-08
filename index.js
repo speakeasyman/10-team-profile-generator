@@ -38,8 +38,8 @@ whoIsManager = () => {
 
     
 })
-.catch(function(error) {
-    console.log("AHHHHHH:", error); 
+.catch(function(err) {
+    console.log("Oh Noes:", error); 
 
     process.exit(1)
 })
@@ -135,5 +135,3 @@ nextPerson = () => {
 
 
 whoIsManager();
-// whoIsEngineer();
-// nextPerson();

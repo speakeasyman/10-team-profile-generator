@@ -1,8 +1,9 @@
-const Employee = require('./lib/employee')
-const Manager = require('./lib/manager')
-const Engineer = require('./lib/engineer')
-const Intern = require('./lib/intern')
-const inquirer = require('inquirer')
+const Employee = require('./lib/employee');
+const Manager = require('./lib/manager');
+const Engineer = require('./lib/engineer');
+const Intern = require('./lib/intern');
+const inquirer = require('inquirer');
+const fs = require('fs');
 
 
 let team = [];
@@ -39,7 +40,7 @@ whoIsManager = () => {
     
 })
 .catch(function(err) {
-    console.log("Oh Noes:", error); 
+    console.log("Oh Noes:", err); 
 
     process.exit(1)
 })
@@ -125,9 +126,18 @@ nextPerson = () => {
             } else if (answer === 'Intern' ) {
                 whoIsIntern();
             } else {
-                console.log(`end: end function goes here`)
+                generateCard();
+
+
+
+                console.log(team[0].role)
                 
             }
+        })
+        .catch(function(err) {
+            console.log("Oh Noes:", err); 
+        
+            // process.exit(1)
         })
 
 }
@@ -135,3 +145,21 @@ nextPerson = () => {
 
 
 whoIsManager();
+
+generateCard = () => {
+    for (let i = 0; i < team.length; i++) {
+        
+        
+    
+             if (team[i].role === 'Manager') {
+            console.log(`I found a manager`)
+        } else if (team[i] === 'Engineer') {
+            console.log(`I found an Engineer`)
+        } else if (team[i] === 'Intern') {
+            console.log(`I found an Intern`)
+        } else return
+    }
+    
+
+    ;
+}

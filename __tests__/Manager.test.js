@@ -3,7 +3,7 @@ const Manager = require('../lib/manager')
 
 const testManager = new Manager("Jon Nance", "10022079", 'jonathan.w.nance@gmail.com', '709')
 
-test ('Does getName() return the proper name positive flow', () => {
+test ('Does getOffice() return the proper name positive flow', () => {
     const test = '709'
     
     
@@ -11,7 +11,7 @@ test ('Does getName() return the proper name positive flow', () => {
     
 })
 
-test ('Does getName() return the proper name negative flow', () => {
+test ('Does getOffice() return the proper name negative flow', () => {
     const test = '736C'
     
     

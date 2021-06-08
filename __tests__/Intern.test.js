@@ -3,7 +3,7 @@ const Intern = require('../lib/intern')
 
 const testIntern = new Intern("Jon Nance", "10022079", 'jonathan.w.nance@gmail.com', 'NCSU')
 
-test ('Does getName() return the proper name positive flow', () => {
+test ('Does getSchool() return the proper name positive flow', () => {
     const test = 'NCSU'
     
     
@@ -11,7 +11,7 @@ test ('Does getName() return the proper name positive flow', () => {
     
 })
 
-test ('Does getName() return the proper name negative flow', () => {
+test ('Does getSchool() return the proper name negative flow', () => {
     const test = 'UNCW'
     
     

@@ -19,7 +19,7 @@ The week 10 homework: A Team Profile generator
 
 4.0 Launch:
 
-    A video can be located at 
+    A video can be located at https://www.youtube.com/watch?v=L4Hzc85TaZc 
     The repo is located at https://github.com/speakeasyman/10-team-profile-generator
     A copy of the sample.html can be located at 
     https://github.com/speakeasyman/10-team-profile-generator/tree/main/sample

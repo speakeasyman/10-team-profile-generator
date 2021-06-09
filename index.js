@@ -49,7 +49,7 @@ whoIsManager = () => {
         const managerCard =
         `<div class="row">
             <div class="col s12 m6">
-            <div class="card blue-grey darken-1">
+            <div class="card deep-purple darken-1">
                 <div class="card-content white-text">
                 <span class="card-title">${response.nameManager}</span>
                 <ul>
@@ -67,7 +67,7 @@ whoIsManager = () => {
         // this just appends the manager data newly created as a card to the sample.html located in the sample folder
         fs.appendFile('./sample/sample.html', managerCard, (err) => err ? console.log(err) : '')
         
-        console.log('managerNew Name:', response.name)    
+           
    
     nextPerson();
 
@@ -110,7 +110,7 @@ whoIsManager = () => {
         const engineerCard =
         `<div class="row">
             <div class="col s12 m6">
-            <div class="card blue-grey darken-1">
+            <div class="card green darken-1">
                 <div class="card-content white-text">
                 <span class="card-title">${response.nameEngineer}</span>
                 <ul>
@@ -120,7 +120,7 @@ whoIsManager = () => {
                 </div>
                 <div class="card-action">
                 <a href="mailto:${response.email}">${response.email}</a>
-                <a href="https://github.com${response.github}" target="_blank" >${response.github}</a>
+                <a href="https://github.com/${response.gitHub}" target="_blank" >${response.gitHub}</a>
                 </div>
             </div>
             </div>
